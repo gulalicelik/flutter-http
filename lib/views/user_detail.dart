@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fetch/models/user.dart';
+import 'package:get/get.dart';
 
 class UserDetail extends StatefulWidget {
-  const UserDetail({Key key}) : super(key: key);
+  int id;
+   UserDetail({this.id, Key key}) : super(key: key);
 
   @override
   _UserDetailState createState() => _UserDetailState();
@@ -15,8 +17,8 @@ class _UserDetailState extends State<UserDetail> {
     var response = await http
         .get(Uri.https('jsonplaceholder.typicode.com', 'users/${userId}'));
     var jsonData = jsonDecode(response.body);
-    User user = User(jsonData['name'], jsonData['email'], jsonData['username'],
-        jsonData['phone'], jsonData['website']);
+    User user = User(jsonData['id'], jsonData['name'], jsonData['email'],
+        jsonData['username'], jsonData['phone'], jsonData['website']);
     return user;
   }
 
@@ -28,7 +30,7 @@ class _UserDetailState extends State<UserDetail> {
       ),
       body: Card(
         child: FutureBuilder(
-          future: getUserDetail(1),
+          future: getUserDetail(widget.id),
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return Container(
@@ -39,11 +41,16 @@ class _UserDetailState extends State<UserDetail> {
             } else {
               return Container(
                 child: Container(
-                  child:Column(
+                  child: Column(
                     children: [
-                      Text(snapshot.data.name),                    ],
+                      Text('Name : ${snapshot.data.name}'),
+                      Text('Username : ${snapshot.data.username}'),
+                      Text('Email : ${snapshot.data.email}'),
+                      Text('Phone : ${snapshot.data.phone}'),
+                      Text('Website : ${snapshot.data.website}'),
+                    ],
                   ),
-                  ),
+                ),
               );
             }
           },

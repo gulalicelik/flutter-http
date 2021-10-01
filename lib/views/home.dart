@@ -22,12 +22,12 @@ class HomePage extends StatelessWidget {
                   },
                   child: Text('Tüm Kullanıcıları çek')
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.to(UserDetail());
-                  },
-                  child: Text('ID\'ye göre kullanıcı çek')
-                ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Get.to(UserDetail());
+                //   },
+                //   child: Text('ID\'ye göre kullanıcı çek')
+                // ),
             ],
           ),
         ),
